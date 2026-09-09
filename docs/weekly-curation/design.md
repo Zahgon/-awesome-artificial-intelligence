@@ -119,7 +119,7 @@ The reviewer prompt will be stored separately. It will not trust the curator rep
 
 ### Deterministic validation
 
-A dependency-free Python validator will check:
+A dependency-free TypeScript validator will check:
 
 - valid resource-line structure;
 - HTTPS links;

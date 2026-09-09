@@ -40,9 +40,12 @@ Descriptions must be specific, neutral, verifiable, and end with a period. Do no
 Before opening a pull request, run:
 
 ```bash
-python3 -m unittest discover -s tests -v
-python3 scripts/validate_readme.py README.md --base origin/master
-python3 scripts/validate_readme.py README.md --check-links --base origin/master
+npm ci
+npm test
+node scripts/validate-readme.ts README.md --base origin/master
+node scripts/validate-readme.ts README.md --check-links --base origin/master
 ```
+
+The tooling needs Node.js 22.18 or newer, which runs the TypeScript sources directly without a build step.
 
 Complete the pull-request template. A maintainer may decline an entry that passes mechanical checks but fails the scope or quality policy.

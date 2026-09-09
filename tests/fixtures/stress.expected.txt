@@ -1,0 +1,13 @@
+ERROR: line 3: resource is outside a level-three category
+ERROR: line 14: description must end with a period
+ERROR: line 15: description must end with a period
+ERROR: line 16: malformed resource entry
+ERROR: line 18: malformed resource entry
+ERROR: line 21: category 'Empty Category' in section 'Learn' has no resources
+ERROR: line 10: duplicate title 'a book' (first used on line 9)
+ERROR: line 10: duplicate URL 'https://example.com/book#section' (first used on line 9)
+ERROR: line 11: invalid URL 'https://example.com:bad/book' (Port could not be cast to integer value as 'bad')
+ERROR: line 32: duplicate URL 'https://example.com/tool?q=1' (first used on line 31)
+ERROR: line 34: duplicate URL 'https://example.com/' (first used on line 33)
+Validated 13 resources with 11 errors and 0 warnings.
+exit=1
