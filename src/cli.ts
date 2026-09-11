@@ -8,7 +8,8 @@ import { checkLinks } from "./checkLinks.ts";
 import { validateChurn } from "./validateChurn.ts";
 import { validateText } from "./validateText.ts";
 
-const PROGRAM = "validate-readme";
+/** Derived, not constant: argparse uses `basename(sys.argv[0])` when no `prog=` is given. */
+const PROGRAM = path.basename(process.argv[1] ?? "validate-readme");
 const DEFAULT_README = "README.md";
 
 const USAGE = `usage: ${PROGRAM} [-h] [--check-links] [--base BASE] [readme]`;

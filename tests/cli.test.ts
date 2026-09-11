@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, symlinkSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import { promisify } from "node:util";
@@ -64,14 +65,29 @@ test("matches the golden output captured from the original Python implementation
 test("prints help and exits zero", async () => {
   const { stdout, code } = await run("--help");
   assert.equal(code, 0);
-  assert.ok(stdout.startsWith("usage: validate-readme [-h] [--check-links] [--base BASE] [readme]"));
+  assert.ok(
+    stdout.startsWith("usage: validate-readme.ts [-h] [--check-links] [--base BASE] [readme]"),
+  );
 });
 
 test("exits with status 2 on an unknown option", async () => {
   const { stderr, code } = await run("--nonsense");
   assert.equal(code, 2);
-  assert.ok(stderr.startsWith("usage: validate-readme"));
-  assert.ok(stderr.includes("validate-readme: error:"));
+  assert.ok(stderr.startsWith("usage: validate-readme.ts"));
+  assert.ok(stderr.includes("validate-readme.ts: error:"));
+});
+
+test("names the program after argv[0], as argparse does", async () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "bv-prog-"));
+  const alias = path.join(dir, "renamed-entry.ts");
+  symlinkSync(ENTRY, alias);
+
+  const { stdout } = await execFileAsync(process.execPath, [alias, "--help"], {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+
+  assert.ok(stdout.startsWith("usage: renamed-entry.ts [-h]"));
 });
 
 test("exits with status 2 when given extra positional arguments", async () => {
